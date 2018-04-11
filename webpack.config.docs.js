@@ -15,10 +15,10 @@ module.exports = {
     port: 9000
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader"
+        use: "ts-loader"
       }
     ]
   },
