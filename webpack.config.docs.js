@@ -8,11 +8,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build/docs"),
     publicPath: "/",
-    filename: "index.js"
+    filename: "[name].js"
   },
   devServer: {
     contentBase: path.join(__dirname, "./public/"),
-    port: 9000
+    port: 9000,
+    hot: true
   },
   module: {
     rules: [
@@ -27,6 +28,7 @@ module.exports = {
       inject: true,
       template: "../public/index.html"
     }),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
