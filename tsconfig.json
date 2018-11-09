@@ -13,6 +13,10 @@
     "esModuleInterop": true,
     "strict": true,
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "design-tokens/*": ["./packages/shared/styles/design-tokens-dist/"]
+    },
     "typeRoots": [
       "node_modules/@types",
       "node_modules/emotion/types",
