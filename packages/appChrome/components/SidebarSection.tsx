@@ -14,7 +14,7 @@ import {
   margin,
   flex
 } from "../../shared/styles/styleUtils";
-import { greyLightDarken3 } from "../../../dist/packages/design-tokens/js/designTokens";
+import { greyLightDarken3 } from "../../design-tokens/build/js/designTokens";
 
 export interface SidebarSectionProps {
   children:
