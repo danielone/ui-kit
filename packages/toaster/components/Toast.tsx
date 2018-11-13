@@ -21,7 +21,7 @@ import {
   green,
   red,
   yellow
-} from "../../shared/styles/design-tokens-dist/js/designTokens";
+} from "../../../dist/packages/design-tokens/js/designTokens";
 
 export type ToastId = React.ReactText | undefined;
 
