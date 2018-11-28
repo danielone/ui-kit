@@ -11,6 +11,7 @@ export {
 } from "./appChrome";
 export { Badge, BadgeButton } from "./badge";
 export { InfoBoxInline, InfoBoxBanner } from "./infobox";
+export { Modal } from "./modal";
 export {
   Column,
   Table,
