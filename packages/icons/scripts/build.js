@@ -25,14 +25,14 @@ const buildDirPath = path.join(__dirname, "../", "dist");
 const getFilePaths = dir =>
   readdirSync(dir).map(file => `${dir}/${file}`);
 
-const writeSprite = (srcDir, spritePath) => {
+const writeSprite = (srcDir, spritePath, idPrefix) => {
   console.info(`\tgenerating sprite at:\n\t${spritePath}\n`);
 
   writeFileSync(
     spritePath,
     getFilePaths(srcDir).reduce((sprites, file) => {
-      return sprites.add(path.basename(file, ".svg"), readFileSync(file, "utf8"));
-    }, svgstore())
+      return sprites.add(`${idPrefix}-${path.basename(file, ".svg")}`, readFileSync(file, "utf8"));
+    }, svgstore({renameDefs: true}))
   );
 };
 
@@ -50,7 +50,7 @@ const optimizeWithSVGO = spritePath => {
   });
 };
 
-const writeEnum = (srcDir, iconSetName) => {
+const writeEnum = (srcDir, iconSetName, idPrefix) => {
   console.info("\tcreating icon name enum\n");
   const svgNamesObj =
     getFilePaths(srcDir)
@@ -62,10 +62,9 @@ const writeEnum = (srcDir, iconSetName) => {
         return prev;
       }, {});
 
-  const enumString = Object.keys(svgNamesObj).reduce((prev, curr) => {
-    const newString = prev += `${curr} = "${svgNamesObj[curr]}",`;
-    return newString;
-  }, "")
+  const enumString = Object.keys(svgNamesObj).reduce((prev, curr) =>
+    prev += `${curr} = "${idPrefix}-${svgNamesObj[curr]}",`,
+  "")
     .split(",")
     .filter(entry => entry != "")
     .join(",\n  ");
@@ -86,10 +85,15 @@ Object.keys(iconSpriteConfig).forEach(iconSet => {
   console.info(`🔧 "${iconSet}" icons`);
   writeSprite(
     iconSpriteConfig[iconSet].inDir,
-    path.join(buildDirPath, iconSpriteConfig[iconSet].filename)
+    path.join(buildDirPath, iconSpriteConfig[iconSet].filename),
+    iconSpriteConfig[iconSet].idPrefix
   );
   optimizeWithSVGO(
     path.join(buildDirPath, iconSpriteConfig[iconSet].filename)
   );
-  writeEnum(iconSpriteConfig[iconSet].inDir, iconSet);
+  writeEnum(
+    iconSpriteConfig[iconSet].inDir,
+    iconSet,
+    iconSpriteConfig[iconSet].idPrefix
+  );
 });

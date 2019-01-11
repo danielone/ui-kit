@@ -5,11 +5,13 @@ const productIconsPath = path.join(__dirname, "src", "icon-product");
 const iconDistConfigObj = {
   system: {
     inDir: systemIconsPath,
-    filename: "system-icons-sprite.svg"
+    filename: "system-icons-sprite.svg",
+    idPrefix: "system"
   },
   product: {
     inDir: productIconsPath,
-    filename: "product-icons-sprite.svg"
+    filename: "product-icons-sprite.svg",
+    idPrefix: "product"
   }
 };
 
